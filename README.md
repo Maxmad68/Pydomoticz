@@ -4,12 +4,12 @@ A Domoticz API for Python
 # Documentation:
 First, you need to get a Domoticz Server with
 
-    Pydomoticz.Domotiz(ip,username[,password])
+    Pydomoticz.Domotiz(ip[,user,password])
 
 Exemple:<space><space>
 
     import Pydomoticz
-    myhome = Pydomoticz.Domoticz('192.168.1.9','Oliver','My.p4ssw0rd')
+    myhome = Pydomoticz.Domoticz('192.168.1.9',user='Oliver',password='My.p4ssw0rd')
     
 Then, you can get some parameters like the status of the Domoticz server, the server time, the sunset or the sunrise:
 
