@@ -68,4 +68,8 @@ Exemples:
     for light in (myhome.getDevices(switchtype='On/Off') ):
         light.off()
 
-   
+# Installation:
+
+For Mac/Linux, just copy and paste this command in the Terminal (sudo privileges required):
+
+    sudo bash -c 'curl https://raw.githubusercontent.com/Maxmad68/Pydomoticz/master/Pydomoticz.py > /usr/lib/python2.7/Pydomoticz.py'
