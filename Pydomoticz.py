@@ -4,6 +4,12 @@
 import json,urllib
 import datetime,time
 
+#  Copyright 2017 Maxime MADRAU
+
+'''
+This module allows to use Domoticz devices with simple Python commands
+'''
+
 def jsonReponse(*args):
 	return json.loads(urllib.urlopen(''.join(args)).read())
 
