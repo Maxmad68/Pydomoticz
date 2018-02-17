@@ -13,6 +13,14 @@ __doc__ = """
 
 __author__ = "Maxime Madrau (maxime@madrau.com)"
 
+RFY = 'RFY'
+TEMP = 'Temp'
+HUMIDITY = 'Humidity'
+BARO = 'Baro'
+RAIN = 'Rain'
+WIND = 'Wind'
+LIGHT = SWITCH = 'Light/Switch'
+
 def jsonReponse(*args):
 	return json.loads(urllib.urlopen(''.join(args)).read())
 
@@ -31,11 +39,10 @@ class Device(object):
 	def __init__(self,parent,idx):
 		self.parent = self._parent = parent
 		self.idx = self._idx = idx
-		self.name = None
+		self.type = map(str,jsonReponse(self._parent._url,'/json.htm?type=devices&rid=%i'%self._idx)['result'][0]['Type'].replace('Light/','').split(' + '))
+		self.name = jsonReponse(self._parent._url,'/json.htm?type=devices&rid=%i'%self._idx)['result'][0]['Name']
 		
 	def __getattr__(self, key):
-		""" look for a 'save' attribute, or just 
-		  return whatever attribute was specified """
 		key = key.replace('_','')
 		reponse = jsonReponse(self._parent._url,'/json.htm?type=devices&rid=%i'%self._idx)['result'][0]
 		for keyToTest in reponse.keys():
@@ -57,7 +64,7 @@ class Device(object):
 		return reponse.keys()
 		
 	def __repr__(self):
-		return '<Domoticz Device at idx %i>'%self._idx
+		return '<Domoticz Device %i>'%self._idx
 		
 	def on(self):
 		"""
@@ -151,6 +158,9 @@ class Domoticz(object):
 			Example:
 				server.getDevices(name="MyStore")[0].name
 				>>> "MyStore"
+				
+				server.getDevices(type=[Pydomoticz.HUMIDITY,Pydomoticz.BARO])[0].type
+				>>> ['Temp', 'Humidity', 'Baro']
 			
 		"""
 		matches = []
@@ -159,9 +169,21 @@ class Domoticz(object):
 			for arg in kwargs.keys():
 				val = kwargs[arg]
 				
-				if str(dev.__getattr__(arg)) != str(val):
-					canMatch = False
-					break
+				if arg == 'type':
+					if isinstance(val, list):
+						for v in val:
+							if str(v) not in str(dev.__getattr__(arg)):
+								canMatch = False
+								break
+					else:
+						if str(val) not in str(dev.__getattr__(arg)):
+							canMatch = False
+							break
+					
+				else:
+					if str(dev.__getattr__(arg)) != str(val):
+						canMatch = False
+						break
 					
 			if canMatch:
 				matches.append(dev)
@@ -180,3 +202,6 @@ class Domoticz(object):
 	
 	def __repr__(self):
 		return '<Domoticz Server at "%s">'%self.ip
+		
+		
+
