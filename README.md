@@ -64,7 +64,7 @@ Exemples:
 
 Retrieving current atmospheric pression:
     import Pydomoticz
-    home = Pydomoticz.Domoticz('192.168.1.4:8084', user="maxime",password="laura")
+    home = Pydomoticz.Domoticz('192.168.1.4:8084', user="Oliver",password="My.P4ssw0rd")
     barometer = home.getDevices(type=Pydomoticz.BARO)[0]
     print barometer.barometer
     >>> 1017
