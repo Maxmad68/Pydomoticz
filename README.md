@@ -62,11 +62,16 @@ You can obviously pilot your devices:
     
 Exemples:
 
-    for blind in allclosedblinds:
-        blind.off()
-       
-    for light in (myhome.getDevices(switchtype='On/Off') ):
-        light.off()
+Retrieving current atmospheric pression:
+    import Pydomoticz
+    home = Pydomoticz.Domoticz('192.168.1.4:8084', user="maxime",password="laura")
+    barometer = home.getDevices(type=Pydomoticz.BARO)[0]
+    print barometer.barometer
+    >>> 1017
+    
+
+      
+
 
 # Installation:
 
