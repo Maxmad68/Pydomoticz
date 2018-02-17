@@ -63,6 +63,7 @@ You can obviously pilot your devices:
 Exemples:
 
 Retrieving current atmospheric pression:
+
     import Pydomoticz
     home = Pydomoticz.Domoticz('192.168.1.4:8084', user="Oliver",password="My.P4ssw0rd")
     barometer = home.getDevices(type=Pydomoticz.BARO)[0]
