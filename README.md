@@ -4,7 +4,7 @@ A Domoticz API for Python
 # Documentation:
 First, you need to get a Domoticz Server with
 
-    Pydomoticz.Domotiz(ip[,user,password])
+    Pydomoticz.Domoticz(ip[,user,password])
 
 Exemple:<space><space>
 
